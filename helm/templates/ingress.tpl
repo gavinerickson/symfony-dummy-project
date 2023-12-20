@@ -1,10 +1,21 @@
 {{- define "ingress.template" -}}
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .service.name | quote }}
+  annotations:
+    kubernetes.io/ingress.class: nginx
 spec:
-  backend:
-    serviceName: {{ .service.name | quote }}
-    servicePort: {{ .service.port }}
+  ingressClassName: nginx
+    rules:
+      - host: {{ .service.host | quote }}
+      http:
+        paths:
+          - pathType: Prefix
+          backend:
+            service:
+              name: {{ .service.name | quote }}
+              port:
+                number: {{ .service.port }}
+          path: /
 {{- end -}}

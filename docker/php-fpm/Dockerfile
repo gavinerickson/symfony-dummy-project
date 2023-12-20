@@ -9,7 +9,7 @@ RUN apk update && \
     apk add --no-cache zlib-dev libzip-dev
 
 ## Install php extensions
-RUN pecl install xdebug && \
+RUN pecl install xdebug-3.1.5 && \
     docker-php-ext-enable xdebug && \
     docker-php-ext-install pdo_mysql zip
 
@@ -21,7 +21,7 @@ WORKDIR /app
 
 ## Install composer
 RUN wget https://getcomposer.org/installer && \
-    php installer --install-dir=/usr/local/bin/ --filename=composer && \
+    php installer --version=1.10.27 --install-dir=/usr/local/bin/ --filename=composer && \
     rm installer && \
     composer global require hirak/prestissimo
 

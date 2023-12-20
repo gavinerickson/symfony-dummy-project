@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: {{ .service.name | quote }}
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - port: {{ .service.port }}
   selector:
